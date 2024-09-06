@@ -26,25 +26,14 @@ namespace BulkyWeb.Controllers
         {
             if (obj.Name == obj.DisplayOrder.ToString())
             {
-                ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name");
-            }
-            if (obj.Name == null)
-            {
-                ModelState.AddModelError("", "lol you stupiod");
-            }
-            if (obj.Name != null && obj.Name.ToLower() == "test")
-            {
-                ModelState.AddModelError("", "Test is an invalid value");
+                ModelState.AddModelError("name", "The Display Order cannot exactly match the Name.");
             }
 
-            if (obj.Name == "MrMorale")
-            {
-                ModelState.AddModelError("", "I see dead peeople");
-            }
             if (ModelState.IsValid)
             {
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Category Created Successfully";
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -84,6 +73,7 @@ namespace BulkyWeb.Controllers
             {
                 _db.Categories.Update(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Category Updated Successfully";
                 return RedirectToAction("Index");
             }
             return View();
@@ -124,6 +114,7 @@ namespace BulkyWeb.Controllers
             }
             _db.Categories.Remove(obj);
             _db.SaveChanges();
+            TempData["success"] = "Category Deleted Successfully";
             return RedirectToAction("Index");
         }
 
