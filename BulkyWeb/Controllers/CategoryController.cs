@@ -89,6 +89,8 @@ namespace BulkyWeb.Controllers
             return View();
         }
 
+
+
         //Delete action methods
         //GET
         public IActionResult Delete(int? id)
@@ -101,8 +103,8 @@ namespace BulkyWeb.Controllers
                 return NotFound();
             }
             Category? CategoryFromDb = _db.Categories.Find(id);
-            Category? CategoryFromDb1 = _db.Categories.FirstOrDefault(u => u.Id == id);
-            Category? CategoryFromDb2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
+            //Category? CategoryFromDb1 = _db.Categories.FirstOrDefault(u => u.Id == id);
+            //Category? CategoryFromDb2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
 
             if (CategoryFromDb == null)
             {
@@ -115,19 +117,14 @@ namespace BulkyWeb.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category obj = _db.Categories.Find(id);
+            Category? obj = _db.Categories.Find(id);
             if (obj == null)
             {
                 return NotFound();
             }
             _db.Categories.Remove(obj);
-            if (ModelState.IsValid)
-            {
-                _db.Categories.Update(obj);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View();
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
     }
