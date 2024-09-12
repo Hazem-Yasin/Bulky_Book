@@ -1,9 +1,9 @@
 //! this part starts building the application
-using Bulky.DataAccess;
-using Bulky.DataAccess.Data;
-using Bulky.DataAccess.Repository.IRepository;
+using BulkyBook.DataAccess;
+using BulkyBook.DataAccess.Data;
+using BulkyBook.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
-using Bulky.DataAccess.Repository;
+using BulkyBook.DataAccess.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
