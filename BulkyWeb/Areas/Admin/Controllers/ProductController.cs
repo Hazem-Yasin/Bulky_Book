@@ -5,10 +5,10 @@
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
-    /// Defines the <see cref="CategoryController" />
+    /// Defines the <see cref="ProductController" />
     /// </summary>
     [Area("Admin")]
-    public class CategoryController : Controller
+    public class ProductController : Controller
     {
         /// <summary>
         /// Defines the _unitOfWork
@@ -16,10 +16,10 @@
         private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CategoryController"/> class.
+        /// Initializes a new instance of the <see cref="ProductController"/> class.
         /// </summary>
         /// <param name="unitOfWork">The unitOfWork<see cref="IUnitOfWork"/></param>
-        public CategoryController(IUnitOfWork unitOfWork)
+        public ProductController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -30,8 +30,8 @@
         /// <returns>The <see cref="IActionResult"/></returns>
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
-            return View(objCategoryList);
+            List<Product> objProductList = _unitOfWork.Product.GetAll().ToList();
+            return View(objProductList);
         }
 
         /// <summary>
@@ -46,21 +46,21 @@
         /// <summary>
         /// The Create
         /// </summary>
-        /// <param name="obj">The obj<see cref="Category"/></param>
+        /// <param name="obj">The obj<see cref="Product"/></param>
         /// <returns>The <see cref="IActionResult"/></returns>
         [HttpPost]
-        public IActionResult Create(Category obj)
+        public IActionResult Create(Product obj)
         {
-            if (obj.Name == obj.DisplayOrder.ToString())
+            if (obj.Title == obj.ListPrice.ToString())
             {
                 ModelState.AddModelError("name", "The Display Order cannot exactly match the Name.");
             }
 
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Add(obj);
+                _unitOfWork.Product.Add(obj);
                 _unitOfWork.Save();
-                TempData["success"] = "Category Created Successfully";
+                TempData["success"] = "Product Created Successfully";
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -83,15 +83,15 @@
             {
                 return NotFound();
             }
-            Category? CategoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
-            //Category? CategoryFromDb1 = _db.Categories.FirstOrDefault(u => u.Id == id);
-            //Category? CategoryFromDb2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
+            Product? ProductFromDb = _unitOfWork.Product.Get(u => u.Id == id);
+            //Product? ProductFromDb1 = _db.Categories.FirstOrDefault(u => u.Id == id);
+            //Product? ProductFromDb2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
 
-            if (CategoryFromDb == null)
+            if (ProductFromDb == null)
             {
                 return NotFound();
             }
-            return View(CategoryFromDb);
+            return View(ProductFromDb);
         }
 
         //Edit Action Methods
@@ -100,16 +100,16 @@
         /// <summary>
         /// The Edit
         /// </summary>
-        /// <param name="obj">The obj<see cref="Category"/></param>
+        /// <param name="obj">The obj<see cref="Product"/></param>
         /// <returns>The <see cref="IActionResult"/></returns>
         [HttpPost]
-        public IActionResult Edit(Category obj)
+        public IActionResult Edit(Product obj)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Update(obj);
+                _unitOfWork.Product.Update(obj);
                 _unitOfWork.Save();
-                TempData["success"] = "Category Updated Successfully";
+                TempData["success"] = "Product Updated Successfully";
                 return RedirectToAction("Index");
             }
             return View();
@@ -132,15 +132,15 @@
             {
                 return NotFound();
             }
-            Category? CategoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
-            //Category? CategoryFromDb1 = _db.Categories.FirstOrDefault(u => u.Id == id);
-            //Category? CategoryFromDb2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
+            Product? ProductFromDb = _unitOfWork.Product.Get(u => u.Id == id);
+            //Product? ProductFromDb1 = _db.Categories.FirstOrDefault(u => u.Id == id);
+            //Product? ProductFromDb2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
 
-            if (CategoryFromDb == null)
+            if (ProductFromDb == null)
             {
                 return NotFound();
             }
-            return View(CategoryFromDb);
+            return View(ProductFromDb);
         }
 
         //Edit Action Methods
@@ -154,14 +154,14 @@
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category? obj = _unitOfWork.Category.Get(u => u.Id == id);
+            Product? obj = _unitOfWork.Product.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _unitOfWork.Category.Remove(obj);
+            _unitOfWork.Product.Remove(obj);
             _unitOfWork.Save();
-            TempData["success"] = "Category Deleted Successfully";
+            TempData["success"] = "Product Deleted Successfully";
             return RedirectToAction("Index");
         }
     }
