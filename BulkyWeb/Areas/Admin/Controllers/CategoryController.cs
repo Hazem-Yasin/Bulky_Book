@@ -1,5 +1,4 @@
-﻿using BulkyBook.DataAccess.Data;
-using BulkyBook.DataAccess.Repository.IRepository;
+﻿using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -49,7 +48,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         //GET
         public IActionResult Edit(int? id)
         {
-            //testing if the id is null to return not found 
+            //testing if the id is null to return not found
             //can create an error page and redirect to it
 
             if (id == null || id == 0)
@@ -66,7 +65,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             }
             return View(CategoryFromDb);
         }
-        //Edit Action Methods 
+        //Edit Action Methods
         //POST (I guess)
         [HttpPost]
         public IActionResult Edit(Category obj)
@@ -87,7 +86,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         //GET
         public IActionResult Delete(int? id)
         {
-            //testing if the id is null to return not found 
+            //testing if the id is null to return not found
             //can create an error page and redirect to it
 
             if (id == null || id == 0)
@@ -104,7 +103,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             }
             return View(CategoryFromDb);
         }
-        //Edit Action Methods 
+        //Edit Action Methods
         //POST (I guess)
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
